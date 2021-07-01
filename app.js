@@ -20,7 +20,7 @@ const aboutContent = "Node.js was used to create the back-end of this app. Mongo
 const app = express();
 
 app.set('view engine', 'ejs');
-app.set("views",path.join(__dirname,"view"));
+app.set("views",path.join(__dirname,"views"));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
