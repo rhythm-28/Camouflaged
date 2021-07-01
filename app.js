@@ -43,17 +43,20 @@ const second = new posts({
 
 const defaultBlogs = [first,second];
 
-app.get("/", async(req,res)=> {
-  const results = await posts.find({});
-  if(results.length==0){
-    await posts.insertMany(defaultBlogs);
-    res.redirect("/");
-  }
-  else{
-    const renderData = {
-      postsData : results
+app.get("/", async (req, res) => {
+  try {
+    const results = await posts.find({});
+    if (results.length == 0) {
+      await posts.insertMany(defaultBlogs);
+      return res.redirect("/");
+    } else {
+      const renderData = {
+        postsData: results,
+      };
+      res.render("home", renderData);
     }
-    res.render("home", renderData);
+  } catch (err) {
+    console.log(err);
   }
 });
 
