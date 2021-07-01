@@ -51,17 +51,17 @@ app.get("/", (req,res)=> {
       }
       else
       {
-        // if(results.length === 0)
-        // {
-        //   posts.insertMany(defaultBlogs,function(err){
-        //     if(err)
-        //     {
-        //       console.log(err);
-        //     }
-        //   });
-        //   res.redirect("/");
-        // }
-        // else
+        if(results.length === 0)
+        {
+          posts.insertMany(defaultBlogs,function(err){
+            if(err)
+            {
+              console.log(err);
+            }
+          });
+          res.redirect("/");
+        }
+        else
         {
           var renderData =
           {
