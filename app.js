@@ -3,10 +3,11 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
+const dbUrl = process.env.dbUrl || "mongodb://localhost:27017/secretsDB";
 
 // creating databasw
 // hiding url for security reasons
-mongoose.connect("mongodb+srv://admin-rhythm:Rhythm28@cluster0.5zi2u.mongodb.net/blogsDB", { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false});
 
 const aboutContent = "Node.js was used to create the back-end of this app. Mongodb is used to store the blogs. HTML & CSS were used for the front-end. Written using Express.js, it was styled using Bootstrap and Embedded JS. It is hosted on Heroku.";
 
