@@ -43,35 +43,49 @@ const second = new posts({
 
 const defaultBlogs = [first,second];
 
-app.get("/", (req,res)=> {
-  posts.find( {}, function(err,results) {
-      if(err)
-      {
-        console.log(err);
-      }
-      else
-      {
-        if(results.length === 0)
-        {
-          posts.insertMany(defaultBlogs,function(err){
-            if(err)
-            {
-              console.log(err);
-            }
-          });
-          res.redirect("/");
-        }
-        else
-        {
-          var renderData =
-          {
-            postsData : results
-          };
-          res.render("home", renderData);
-        }
-      }
-    });
+app.get("/", async(req,res)=> {
+  const results = await posts.find({});
+  if(results.length==0){
+    await posts.insertMany(defaultBlogs);
+    res.redirect("/");
+  }
+  else{
+    const renderData = {
+      postsData : results
+    }
+    res.render("home", renderData);
+  }
 });
+
+// app.get("/", (req,res)=> {
+//   posts.find( {}, function(err,results) {
+//       if(err)
+//       {
+//         console.log(err);
+//       }
+//       else
+//       {
+//         if(results.length === 0)
+//         {
+//           posts.insertMany(defaultBlogs,function(err){
+//             if(err)
+//             {
+//               console.log(err);
+//             }
+//           });
+//           res.redirect("/");
+//         }
+//         else
+//         {
+//           var renderData =
+//           {
+//             postsData : results
+//           };
+//           res.render("home", renderData);
+//         }
+//       }
+//     });
+// });
 
 app.get("/about", (req,res)=>
 {
