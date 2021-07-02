@@ -1,21 +1,29 @@
 <%- include('partials/header.ejs') -%>
 
-<h1 class="headings"> Welcome</h1>
-<h4> Welcome to the safest secret storage website in the world. Here, you can reveal your anecdotal secrets and no one can judge you. Why? We don't store your data. There is no way anyone can find out whose secret is written. To compose your secret, click on the compose button in the navigation bar. This is the home page of our secret facility. It displays all the secrets of our fellow users. Feel free to share your experiences. </h4>
-<h1 class="card-title new-secret" style="text-align: center;"> Add your own secret <a style="text-align: center;" href="/compose" class="card-link"> <i class="fas fa-plus-circle"></i> </a></h1>
-<div class="row secrets-div">
+<div class="main-div row">
 
-  <% postsData.forEach( (i) => {  %>
+  <div class="info-div col-12">
+    <h1 class="headings"> Welcome</h1>
+    <h4> Welcome to the safest secret storage website in the world. Here, you can reveal your anecdotal secrets and no one can judge you. Why? We don't store your data. There is no way anyone can find out whose secret is written. To compose your secret, click on the compose button in the navigation bar. This is the home page of our secret facility. It displays all the secrets of our fellow users. Feel free to share your experiences. </h4>
+    <h1 class="card-title new-secret" style="text-align: center;"> Add your secret <a style="text-align: center;" href="/compose" class="card-link"> <i class="fas fa-plus-circle"></i> </a></h1>
+  </div>
 
-    <div class="card col-lg-3 col-md-4 col-xs-6 column-of-cards" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title" style="text-align: center;"> <%= i.title %> </h5>
-        <p class="card-text"><%= i.content.substring(0,200) + "..." %></p>
-        <a style="text-align: center;" href="/posts/<%= i._id %>" class="card-link"> Read More</a>
-      </div>
+  <div class="secrets-main-div col-12">
+    <div class="row secrets-div">
+
+      <% postsData.forEach( (i) => {  %>
+        <div class="card col-lg-3 col-md-4 col-xs-6 column-of-cards" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;"> <%= i.title %> </h5>
+            <p class="card-text"><%= i.content.substring(0,200) + "..." %></p>
+            <a style="text-align: center;" href="/posts/<%= i._id %>" class="card-link"> Read More</a>
+          </div>
+        </div>
+      <% });  %>
+      
     </div>
-  
-  <% });  %>
+  </div>
+
 </div>
 
 <%- include('partials/footer.ejs') -%>
