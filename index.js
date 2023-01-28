@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const dbUrl = process.env.dbUrl;
 
 // creating database
-mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true});
 
 const aboutContent = "Node.js was used to create the back-end of this app. Mongodb is used to store the blogs. HTML & CSS were used for the front-end. Written using Express.js, it was styled using Bootstrap and Embedded JS. It is hosted on Heroku.";
 
