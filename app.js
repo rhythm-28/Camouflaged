@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
-const dbUrl = process.env.dbUrl || "mongodb://localhost:27017/secretsDB";
+const dbUrl = process.env.dbUrl;
 
 // creating database
 mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false});
@@ -22,10 +22,12 @@ app.set("views",path.join(__dirname,"views"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-const a = mongoose.Schema({
-  title: String,
-  content: String
-});
+const a = mongoose.Schema(
+  {
+    title: String,
+    content: String,
+  },
+);
 
 const posts = mongoose.model("Blog",a);
 
@@ -41,52 +43,52 @@ const second = {
 
 const defaultBlogs = [first,second];
 
-app.get("/", async (req, res) => {
-  try {
-    const results = await posts.find({});
-    if (results.length == 0) {
-      await posts.insertMany(defaultBlogs);
-      return res.redirect("/");
-    } else {
-      const renderData = {
-        postsData: results,
-      };
-      res.render("home", renderData);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-// app.get("/", (req,res)=> {
-//   posts.find( {}, function(err,results) {
-//       if(err)
-//       {
-//         console.log(err);
-//       }
-//       else
-//       {
-//         if(results.length === 0)
-//         {
-//           posts.insertMany(defaultBlogs,function(err){
-//             if(err)
-//             {
-//               console.log(err);
-//             }
-//           });
-//           res.redirect("/");
-//         }
-//         else
-//         {
-//           var renderData =
-//           {
-//             postsData : results
-//           };
-//           res.render("home", renderData);
-//         }
-//       }
-//     });
+// app.get("/", async (req, res) => {
+//   try {
+//     const results = await posts.find({});
+//     if (results.length == 0) {
+//       await posts.insertMany(defaultBlogs);
+//       return res.redirect("/");
+//     } else {
+//       const renderData = {
+//         postsData: results,
+//       };
+//       res.render("home", renderData);
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
 // });
+
+app.get("/", (req,res)=> {
+  posts.find( {}, function(err,results) {
+      if(err)
+      {
+        console.log(err);
+      }
+      else
+      {
+        if(results.length === 0)
+        {
+          posts.insertMany(defaultBlogs,function(err){
+            if(err)
+            {
+              console.log(err);
+            }
+          });
+          res.redirect("/");
+        }
+        else
+        {
+          var renderData =
+          {
+            postsData : results
+          };
+          res.render("home", renderData);
+        }
+      }
+    });
+});
 
 app.get("/about", (req,res)=>
 {
